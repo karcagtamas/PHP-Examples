@@ -18,6 +18,23 @@
         //\n --> sortörés
      }
      ?>
+     
      </ul>
+     <br>
+     <table border='1'>
+     <?php
+        for ($i=0; $i < 10; $i++) 
+        { 
+            echo "\n<tr>";
+             for ($j=0; $j < 10; $j++) 
+            { 
+                $a = rand(0,100); //rand(); ---> random szám generálás
+                echo "\n<td>$a</td>";
+            }
+            echo "\n</tr>";
+        }
+     
+     ?>
+     </table>
 </body>
 </html>
