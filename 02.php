@@ -46,5 +46,26 @@
      
      ?>
      </table>
+
+     <table border='1'>
+     <?php
+     $T = array(0,0,0);
+        for ($i=0; $i < 10; $i++) 
+        { 
+            for ($k=0; $k < 3; $k++) 
+            { 
+                $T[$k] = rand(0,255);
+            }
+            echo "\n<tr style='background:rgb($T[0],$T[1],$T[2])'>";
+             for ($j=0; $j < 10; $j++) 
+            { 
+                $a = rand(0,100); //rand(); ---> random szám generálás
+                echo "\n<td>$a</td>";
+            }
+            echo "\n</tr>";
+        }
+     
+     ?>
+     </table>
 </body>
 </html>
