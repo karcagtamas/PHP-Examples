@@ -6,6 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Second Project</title>
 </head>
+<style>
+    td, th{
+        width: 20px;
+        height: 20px;
+    }
+    th{
+        background-color: gray;
+    }
+</style>
 <body>
     <ul>
      <?php
@@ -29,7 +38,8 @@
              for ($j=0; $j < 10; $j++) 
             { 
                 $a = rand(0,100); //rand(); ---> random szám generálás
-                echo "\n<td>$a</td>";
+                if ($i == 0 || $j == 0) echo "\n<th>$a</th>";
+                else echo "\n<td>$a</td>";
             }
             echo "\n</tr>";
         }
