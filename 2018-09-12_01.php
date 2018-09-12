@@ -22,11 +22,11 @@
                     echo "<th>#</th>";
                 }
 
-                if ($i == 0)
+                if ($i == 0 && $j != 0)
                 {
                     echo "<th>$j</th>";
                 }
-                if ($j == 0)
+                if ($j == 0 && $i != 0)
                 {
                     echo "<th>$i</th>";
                 }
