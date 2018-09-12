@@ -10,3 +10,6 @@ th{
 td{
     background-color: #C64545;
 }
+td:hover{
+    background-color: blue;
+}

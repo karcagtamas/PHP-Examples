@@ -41,7 +41,7 @@
             echo "</tr>";
         }
         //var_dump($_SERVER); kiirja a változó értékét
-        var_dump($_GET);
+        //var_dump($_GET);
 
     ?>
     </table>
