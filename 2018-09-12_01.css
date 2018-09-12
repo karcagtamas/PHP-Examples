@@ -12,5 +12,9 @@ td{
 }
 td:hover{
     background-color: blue;
-    
+
+}
+tr:hover{
+    background-color: blueviolet;
+    font-size: 100px;
 }
