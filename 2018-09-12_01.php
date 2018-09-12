@@ -11,8 +11,9 @@
 <body>
     <table>
     <?php
-        $row = 10;
-        $col = 10;
+        $meret = $_GET['meret'];
+        $row = $meret;
+        $col = $meret;
         for ($i=0; $i <= $row; $i++) 
         { 
             echo "<tr>";
@@ -39,6 +40,9 @@
             }
             echo "</tr>";
         }
+        //var_dump($_SERVER); kiirja a változó értékét
+        var_dump($_GET);
+
     ?>
     </table>
 </body>
