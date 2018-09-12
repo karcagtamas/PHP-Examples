@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="2018-09-12_01.css">
     <title>Document</title>
 </head>
 <body>
@@ -22,11 +23,11 @@
                     echo "<th>#</th>";
                 }
 
-                if ($i == 0)
+                if ($i == 0 && $j != 0)
                 {
                     echo "<th>$j</th>";
                 }
-                if ($j == 0)
+                if ($j == 0 && $i != 0)
                 {
                     echo "<th>$i</th>";
                 }

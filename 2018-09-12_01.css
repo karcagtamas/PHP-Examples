@@ -1,0 +1,12 @@
+table, td, th{
+    border: 1px solid black;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
+}
+th{
+    background-color: greenyellow;
+}
+td{
+    background-color: #C64545;
+}
