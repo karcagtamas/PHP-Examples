@@ -36,7 +36,7 @@
                 if ($j != 0 && $i != 0)
                 {
                     $x = $i * $j;
-                    echo "<td>$x</td>";
+                    echo "<td title='$i * $j'>$x</td>";
                 }
             }
             echo "</tr>";
