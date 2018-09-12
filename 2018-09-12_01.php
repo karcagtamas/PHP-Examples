@@ -11,7 +11,8 @@
 <body>
     <table>
     <?php
-        $meret = $_GET['meret'];
+        if (isset($_GET['meret']) && $_GET['meret'] > 0) $meret = $_GET['meret'];
+        else $meret = 10;
         $row = $meret;
         $col = $meret;
         for ($i=0; $i <= $row; $i++) 
