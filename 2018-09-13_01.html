@@ -8,17 +8,23 @@
     <title>Regisztráció</title>
 </head>
 <body>
-    <form action="2018-09-13_01.php" method="post">
-        <fieldset>
-            <legend>Regisztráció</legend>
-            <label for="nev" >Név:</label>
-            <input type="text" name="name" id="name"> <br>
-            <label for="jelszo" >Jelszó:</label>
-            <input type="password" name="pass" id="pass"> <br>
-            <label for="jelszo2" >Jelszó újra:</label>
-            <input type="password" name="pass2" id="pass2"> <br>
-            <input type="submit" name="gomb" value="Regisztrál">
-        </fieldset>
-    </form>
+    <div id="box">
+            <form action="2018-09-13_01.php" method="post">
+                    <fieldset>
+                        <legend>Regisztráció</legend>
+                        <label for="nev" >Név:</label> <br>
+                        <input type="text" name="name" id="name"> <br> <br>
+                        <label for="jelszo" >Jelszó:</label><br>
+                        <input type="password" name="pass" id="pass"> <br> <br>
+                        <label for="jelszo2" >Jelszó újra:</label><br>
+                        <input type="password" name="pass2" id="pass2"> <br> <br>
+                        <div style="text-align:center;">
+                                <input type="submit" name="gomb" value="Regisztrál" id="button">
+                        </div>
+                        
+                    </fieldset>
+                </form>
+    </div>
+    
 </body>
 </html>

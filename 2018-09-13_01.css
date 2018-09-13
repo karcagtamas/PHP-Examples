@@ -1,5 +1,6 @@
 fieldset{
     background-color: lightblue;
+
 }
 legend{
     padding: 5px;
@@ -12,6 +13,35 @@ label{
     color: red;
     background-color: lightsalmon;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 20px;
+    padding: 10px;
+}
+#box{
+    width: 300px;
+    margin: auto;
+    margin-top: 20%;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 15px;
+}
+input{
+    width: 100%;
+}
+#button{
+    background-color: lightskyblue;
+    border: 1px solid black;
+    padding: 15px;
+    border-radius: 15px;
+    width: auto;
+}
+#button:hover{
+    transition-duration: 1000ms;
+    background-color: lightgreen;
+}
+.succes{
+    color: green;
+    background-color: lightskyblue;
+    font-weight: bold;
+    font-size: 20px;
     padding: 10px;
 }
