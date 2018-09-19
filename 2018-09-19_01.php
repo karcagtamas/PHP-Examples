@@ -1,3 +1,14 @@
+<?php
+    if(isset($_POST['A']) && isset($_POST['B']))
+    {
+        $A = $_POST['A'];
+        $B = $_POST['B'];
+    }
+    else
+    {
+        $A = $B = "";
+    }
+?>
 <!DOCTYPE html>
 <html lang="hu">
 <head>
