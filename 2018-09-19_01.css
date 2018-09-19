@@ -33,3 +33,7 @@ input{
 #rectangle{
     border: solid 5px black;
 }
+#frame{
+    width: 350px;
+    margin: auto;
+}

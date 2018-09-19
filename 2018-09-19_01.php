@@ -19,14 +19,15 @@
     <title>Téglalap</title>
 </head>
 <body>
+    <div id="frame">
     <fieldset id="input">
         <legend>Téglalap</legend>
         <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
             <label>A:</label>
-            <input type="number" name="A" id="A">
+            <input type="number" name="A" id="A" step="0.001" min="0">
             <br> <br>
             <label>B:</label>
-            <input type="number" name="B" id="B">
+            <input type="number" name="B" id="B" step="0.001" min="0">
             <br><br>
             <div id="buttonframe">
                 <input type="submit" value="Számítás" id="button">
@@ -52,5 +53,6 @@
             echo "<div id='rectangle' style='width:".$A."px; height:".$B."px'></div>";
         }
     ?>
+    </div>
 </body>
 </html>
