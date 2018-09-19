@@ -1,0 +1,35 @@
+fieldset{
+    width: 300px;
+}
+#input{
+    background-color: lightcoral;
+    padding: 10px;
+    border: gray 5px solid;
+}
+#data{
+    background-color: lightcyan;
+    padding: 10px;
+    border: gray 5px solid;
+}
+legend{
+    font-weight: bold;
+    font-size: 20px;
+}
+label{
+    font-weight: bold;
+    font-size: 20px;
+}
+input{
+    width: 90%;
+}
+#button{
+    width: auto;
+    padding: 5px 10px;
+    background-color: lightseagreen;
+}
+#buttonframe{
+    text-align: center;
+}
+#rectangle{
+    border: solid 5px black;
+}
