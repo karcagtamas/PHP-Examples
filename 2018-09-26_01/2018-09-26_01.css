@@ -1,0 +1,26 @@
+header, footer, main, menu{
+    background-color: lightcyan;
+    padding: 10px;
+    margin: 10px;
+}
+footer{
+    clear: both;
+}
+menu{
+    width: 20%;
+    float: left;
+}
+menu a{
+    color: black;
+    text-decoration: none;
+}
+menu a:hover{
+    text-decoration: underline;
+}
+menu ul{
+    list-style-type: none;
+}
+menu li{
+    margin: 20px 0;
+}
+
