@@ -44,7 +44,7 @@
         <h1>Regisztrációs Panel</h1>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
         <label>Felhasználónév:</label> <br>
-        <input type="text" name="username" id="username"> <br>
+        <input type="text" name="username" id="username" value="<?php echo $username;?>"> <br>
         <label>Jelszó:</label> <br>
         <input type="password" name="password" id="password"> <br>
         <label>Jelszó újra:</label> <br>
