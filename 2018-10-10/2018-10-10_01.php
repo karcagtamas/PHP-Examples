@@ -31,12 +31,16 @@
             }
             var_dump($belepve);
             fclose($f);
-        } 
+        }
+        if (!isset($belepve) || $belepve != 1)
+        {
+            echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">
+            <label>Usernév:</label><input type="text" name="user">
+            <label>Jelszó:</label><input type="password" name="password">
+            <input type="submit" value="Belépés">
+        </form>';
+        }
     ?>
-    <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
-        <label>Usernév:</label><input type="text" name="user">
-        <label>Jelszó:</label><input type="password" name="password">
-        <input type="submit" value="Belépés">
-    </form>
+    
 </body>
 </html>
