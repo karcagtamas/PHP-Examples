@@ -41,9 +41,20 @@
                 }
             }
             if ($b) echo "Nem osztható ki több IP cím!";
+            else
+            {
+                $string = "<table>";
+                $string .= "<tr><td>IP</td><td>$NET.".$reserved[count($reserved) - 1]."</td><tr>";
+                $string .= "<tr><td>MASK</td><td>$MASK</td><tr>";
+                $string .= "<tr><td>GateWay</td><td>$GW</td><tr>";
+                $string .= "<tr><td>DNS1</td><td>$DNS1</td><tr>";
+                $string .= "<tr><td>DNS2</td><td>$DNS2</td><tr>";
+                $string .= "</table>";
+                echo $string;
+            }
         }
 
-
+        sort($reserved);
         $out = "<table>";
         foreach ($reserved as $value) {
             $out .= "<tr><td>";
