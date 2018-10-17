@@ -43,7 +43,8 @@
             if ($b) echo "Nem osztható ki több IP cím!";
             else
             {
-                $string = "<table>";
+                $string = "<h1>Új IP cím</h1>"; 
+                $string .= "<table>";
                 $string .= "<tr><td>IP</td><td>$NET.".$reserved[count($reserved) - 1]."</td><tr>";
                 $string .= "<tr><td>MASK</td><td>$MASK</td><tr>";
                 $string .= "<tr><td>GateWay</td><td>$GW</td><tr>";
@@ -55,7 +56,8 @@
         }
 
         sort($reserved);
-        $out = "<table>";
+        $out = "<h1>Kiosztott címek:</h1>";
+        $out .= "<table>";
         foreach ($reserved as $value) {
             $out .= "<tr><td>";
             $out .= $NET.".".$value;
