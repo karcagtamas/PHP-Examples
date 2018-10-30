@@ -1,50 +1,37 @@
 <?php
-session_start();
+    session_start();
 include("database.php");
 $report = "";
+$errorusername = false;
+$errorpassword = false;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+     $username = $_POST['username'];
+     $password = $_POST['password'];
+     $repassword = $_POST['repassword'];
 
-    /* $f = fopen("users.txt", "r");
-    $b = true;
-    while(!feof($f) && $b)
-    {
-        $row = explode(';', fgets($f));
-        if ($username == $row[0] && $password == $row[1])
-        {
-            $b = false;
-        }
-    }
-    fclose($f);
-    if ($b) $report = "Hibás adatok! Kérjük próbálkozzon újra!";
-    else 
-    {
-        $_SESSION['username'] = $username;
-        header('location: forum.php');
-    } */
+     if (trim($password) == "") { $errorpassword = true; $report = "Kötelező kitölteni a jelszó mezőt!";}
+     else if (strlen(trim($password)) != strlen($password)) { $errorpassword = true; $report = "Nem tartalmazhat szóközt a jelszó!";}
+     else if ($password != $repassword) {$errorpassword = true; $report = "A két jelszó nem egyezik!";}
 
-    $sql = "SELECT COUNT(username) FROM users WHERE username LIKE '$username';";
-    $result = mysqli_query($db, $sql);
-    if (mysqli_fetch_array($result)[0] == 1)
-    {
-        $sql = "SELECT password FROM users WHERE username LIKE '$username';";
+     if (trim($username) == "") { $errorusername = true; $report = "Kötelező kitölteni a felhasználónév mezőt!";}     
+     else if (strlen(trim($username)) != strlen($username)) { $errorusername = true; $report = "Nem tartalmazhat szóközt a felhasználónév!";}
+     else{
+
+        $sql = "SELECT COUNT(username) FROM users WHERE username LIKE '$username';";
         $result = mysqli_query($db, $sql);
-        if (password_verify($password, mysqli_fetch_array($result)[0]))
-        {
-            $_SESSION['username'] = $username;
-            header('location: forum.php');
-        }
-        else
-        {
-            $report = "Hibás jelszó, kérjük próbálja újra!";
-        }
-    }
-    else
-    {
-        $report = "Hibás felhasználónév vagy jelszó!";
-    }
+        if (mysqli_fetch_array($result)[0] != 0) {$errorusername = true; $report = "Már létezik ilyen felhasználónév";}
+     }
+
+     if (!$errorpassword && !$errorusername)
+     {
+         $hash = password_hash($password, PASSWORD_DEFAULT);
+         $sql = "INSERT INTO users(username, password) VALUES ('$username', '$hash');";
+         mysqli_query($db, $sql);
+         header("location: login.php");
+     }
+
+    
 
 }
 ?>
@@ -55,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <title>Login</title>
+    <title>Registration</title>
 </head>
 <style>
     form{
@@ -63,21 +50,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
      a{
         color: white;
+        text-dacoration: none;
+    }
+    a: hover{
+        color: white;
         text-decoration: none;
     }
 </style>
 <body>
     <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" class="col col-4 border rounded">
     <div class="form-group">
-    <label>Username</label>
+    <label>Felhasználónév:</label>
     <input class="form-control" type="text" name="username">
     </div>
     <div class="form-group">
-    <label>Password</label>
+    <label>Jelszó:</label>
     <input class="form-control" type="password" name="password">
     </div>
-    <div id="reg" class="btn btn-primary float-right"><a href="registration.php">Regisztráció</a></div>
-    <input class="btn btn-primary" type="submit" value="Bejelentkezés">
+    <div class="form-group">
+    <label>Jelszó újra:</label>
+    <input class="form-control" type="password" name="repassword">
+    </div>
+    <div id="log" class="btn btn-primary float-right"><a href="login.php">Bejelentkezés</a></div>
+    <input class="btn btn-primary" type="submit" value="Regisztráció">
     <br> <br>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <?php echo $report; ?>

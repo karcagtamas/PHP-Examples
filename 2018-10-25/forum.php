@@ -1,20 +1,36 @@
 <?php 
 session_start();
+include("database.php");
 if (!isset($_SESSION['username']))
 {
     header('location: login.php');
 }
+if (isset($_GET['topic'])) $event = $_GET['topic'];
+else $event = 0;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     $username = $_SESSION['username'];
-    $text = $_POST['text'];
-    $f = fopen('post.txt', "r");
+    $topicname = $_POST['topicname'];
+    $f = true;
+    if (trim($topicname) == "") $f = false;
+
+    if ($f)
+    {
+        $sql = "SELECT id FROM users WHERE username LIKE '$username'";
+        $result = mysqli_query($db, $sql);
+        $result = mysqli_fetch_assoc($result);
+        $userid = $result['id'];
+        $sql = "INSERT INTO topics(name, creater) VALUES('$topicname', '$userid');";
+        mysqli_query($db, $sql);
+    }
+    /* $f = fopen('post.txt', "r");
     $current = fread($f, filesize('post.txt'));
     fclose($f);
     $f = fopen('post.txt', "w");
     fwrite($f, $username.";".$text."¤".$current);
-    fclose($f);
+    fclose($f); */
+
 }
 ?>
 <!DOCTYPE html>
@@ -31,25 +47,61 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         margin: 10px;
         padding: 10px;
     }
-    form{
+    form, #modal{
         
         margin: 10px;
     
     }
+    a{
+        color: white;
+        text-decoration: none;
+    }
+    #logout, #back{
+        margin: 20px;
+    }
 </style>
 <body>
-    <h1>Belépett felhasználó: <?php echo $_SESSION['username'] ?></h1>
-    <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" class="border rounded col col-6">
-    <div class="form-group">
-        <label>Poszt szövege</label>
-        <textarea class="form-control" name="text" cols="30" rows="10"></textarea>
+    <div id="logout" class="btn btn-primary float-right"><a href="logout.php">Kijelentkezés</a></div>
+    <?php if($event) echo "<div id='back' class='btn btn-primary float-right'><a href='forum.php'>Vissza</a></div>"; ?>
+    <h1 class="post border rounded col col-6">Belépett felhasználó: <?php echo $_SESSION['username'] ?></h1>
+
+    <?php if (!$event) echo "<button id='modal' type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal'>Új beszélgetés létrehozása</button>" ?>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Új Beszélgetés</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        <div class="form-group">
+        <label>Beszélgetés neve:</label>
+        <input class="form-control" type="text" name="topicname">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Mentés">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
     </div>
-    <input class="btn btn-primary"type="submit" value="Post it">
-    <br> <br>
-    </form>
+  </div>
+</div>
+
     <br>
     <?php
-        $f = fopen("post.txt", "r");
+    if (!$event)
+    {
+        include("topics.php");
+    }
+    else
+    {
+        include("posts.php");
+    }
+       /*  $f = fopen("post.txt", "r");
         $content = explode('¤', fread($f, filesize('post.txt')));
         foreach ($content as $i) {
             $row = explode(';', $i);
@@ -61,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             echo "</div>";  
             }
         }
-        fclose($f); 
+        fclose($f);  */
     ?>
 </body>
 </html>
