@@ -11,7 +11,7 @@ else $event = 0;
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     $username = $_SESSION['username'];
-    $topicname = $_POST['topicname'];
+    if (isset($_POST['submit'])) { $topicname = $_POST['topicname'];
     $f = true;
     if (trim($topicname) == "") $f = false;
 
@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $f = fopen('post.txt', "w");
     fwrite($f, $username.";".$text."¤".$current);
     fclose($f); */
+}
 
 }
 ?>
@@ -81,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         <label>Beszélgetés neve:</label>
         <input class="form-control" type="text" name="topicname">
         </div>
-        <input class="btn btn-primary" type="submit" value="Mentés">
+        <input class="btn btn-primary" type="submit" value="Mentés" name="submit">
         </form>
       </div>
       <div class="modal-footer">

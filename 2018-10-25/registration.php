@@ -74,12 +74,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <div id="log" class="btn btn-primary float-right"><a href="login.php">Bejelentkezés</a></div>
     <input class="btn btn-primary" type="submit" value="Regisztráció">
     <br> <br>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <?php echo $report; ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+
+     <?php
+        if ($report != "")
+        {
+            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">'.$report.'
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>';
+        }
+    ?>
+    
     </form>
 </body>
 </html>

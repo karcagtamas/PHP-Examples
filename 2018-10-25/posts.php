@@ -2,6 +2,7 @@
 <?php
 if (isset($db))
 {
+    $report = "";
     $id = $_GET['topic'];
     $sql = "SELECT t.name, t.creation_time, u.username FROM topics t INNER JOIN users u ON t.creater = u.id WHERE t.id='$id' LIMIT 1;";
     $result = mysqli_query($db, $sql);
@@ -14,12 +15,18 @@ if (isset($db))
     {
         $username = $_SESSION['username'];
         $content = $_POST['text'];
-        $sql = "SELECT id FROM users WHERE username LIKE '$username'";
-        $result = mysqli_query($db, $sql);
-        $result = mysqli_fetch_assoc($result);
-        $userid = $result['id'];
-        $sql = "INSERT INTO posts(content, writer, topic) VALUES('$content', '$userid', '$id')";
-        mysqli_query($db, $sql);
+        if (trim($content) != "")
+        {
+            $sql = "SELECT id FROM users WHERE username LIKE '$username'";
+            $result = mysqli_query($db, $sql);
+            $result = mysqli_fetch_assoc($result);
+            $userid = $result['id'];
+            $sql = "INSERT INTO posts(content, writer, topic) VALUES('$content', '$userid', '$id')";
+            mysqli_query($db, $sql);
+        }
+        else {
+            $report = "Nem lehet üres elemet beküldeni!";
+        }
     }
 } 
 ?>
@@ -27,6 +34,10 @@ if (isset($db))
 <form action="<?php echo $_SERVER['PHP_SELF']."?topic=$id";?>" method="post" class="border rounded col col-6">
     <div class="form-group">
         <h2>Poszt szövege:</h2>
+        <?php
+            if ($report != "") echo '<div class="alert alert-danger">'.$report.'</div>';
+        ?>
+        
         <textarea class="form-control" name="text" cols="30" rows="10"></textarea>
     </div>
     <input class="btn btn-primary"type="submit" value="Küldés">
