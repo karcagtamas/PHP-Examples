@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <label>Jelszó újra:</label>
     <input class="form-control" type="password" name="repassword">
     </div>
-    <div id="log" class="btn btn-primary float-right"><a href="login.php">Bejelentkezés</a></div>
+    <a href="login.php" id="log" class="btn btn-primary float-right">Bejelentkezés</a>
     <input class="btn btn-primary" type="submit" value="Regisztráció">
     <br> <br>
 

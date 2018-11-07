@@ -1,6 +1,13 @@
 <?php
 if (isset($db))
 {
+    if (isset($_GET['delete']))
+    {
+        $deleted = $_GET['delete'];
+        $sql = "DELETE FROM topics WHERE id = '$deleted';";
+        mysqli_query($db, $sql);
+        header("location: ".$_SERVER['PHP_SELF']);
+    }
     $sql = "SELECT t.id, t.name, t.creation_time, u.username FROM topics t INNER JOIN users u ON t.creater = u.id ORDER BY t.creation_time DESC;";
     $result = mysqli_query($db, $sql);
     $array = array();
@@ -12,8 +19,9 @@ if (isset($db))
     {
     foreach ($array as $i) {
         echo "<div class='post border rounded col col-6'>";
-        echo "<a href=".$_SERVER['PHP_SELF']."?topic=".$i['id']." class='btn btn-secondary float-right'>Megnyitás</a>";
+        echo "<a href='".$_SERVER['PHP_SELF']."?topic=".$i['id']."' class='btn btn-secondary float-right'>Megnyitás</a>";
         echo "<h2>".$i['name']."</h2>";
+        echo "<a href='".$_SERVER['PHP_SELF']."?delete=".$i['id']."' class='btn btn-secondary float-right'>Törlés</a>";
         echo "<h6>Létrehozva: ".$i['creation_time']."</h6>";
         echo "<h6>Létrehozó: ".$i['username']."</h6>";
         echo "</div>";  

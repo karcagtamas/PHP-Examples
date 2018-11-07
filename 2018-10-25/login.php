@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <label>Password</label>
     <input class="form-control" type="password" name="password">
     </div>
-    <div id="reg" class="btn btn-primary float-right"><a href="registration.php">Regisztráció</a></div>
+    <a href="registration.php" id="reg" class="btn btn-primary float-right">Regisztráció</a>
     <input class="btn btn-primary" type="submit" value="Bejelentkezés">
     <br> <br>
     <?php

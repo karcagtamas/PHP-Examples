@@ -16,7 +16,7 @@ CREATE TABLE topics(
   creation_time datetime DEFAULT NOW(),
   creater int(11) NOT NULL,
   CONSTRAINT fk_creater_id_users FOREIGN KEY (creater)
-  REFERENCES users (id)
+  REFERENCES users (id) 
 );
 
 CREATE TABLE posts(
@@ -26,7 +26,7 @@ CREATE TABLE posts(
   topic int(11) NOT NULL,
   PRIMARY KEY (writer, write_time),
   CONSTRAINT fk_writer_id_users FOREIGN KEY (writer)
-  REFERENCES users(id),
+  REFERENCES users(id) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT fk_topic_id_topics FOREIGN KEY (topic)
-  REFERENCES topics (id)
+  REFERENCES topics (id) ON DELETE CASCADE ON UPDATE RESTRICT
 );

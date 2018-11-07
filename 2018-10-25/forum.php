@@ -62,8 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
 </style>
 <body>
-    <div id="logout" class="btn btn-primary float-right"><a href="logout.php">Kijelentkezés</a></div>
-    <?php if($event) echo "<div id='back' class='btn btn-primary float-right'><a href='forum.php'>Vissza</a></div>"; ?>
+    <a href="logout.php" id="logout" class="btn btn-primary float-right">Kijelentkezés</a>
+    <?php if($event) echo "<a href='forum.php' id='back' class='btn btn-primary float-right'>Vissza</a>"; ?>
     <h1 class="post border rounded col col-6">Belépett felhasználó: <?php echo $_SESSION['username'] ?></h1>
 
     <?php if (!$event) echo "<button id='modal' type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal'>Új beszélgetés létrehozása</button>" ?>

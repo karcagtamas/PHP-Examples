@@ -2,6 +2,17 @@
 <?php
 if (isset($db))
 {
+    if (isset($_GET['deletepost']))
+    {
+
+        $delete = explode(';',$_GET['deletepost']);
+        $writer = $delete[0];
+        $date = $delete[1];
+        $topic = $_GET['topic'];
+        $sql = "DELETE FROM posts WHERE writer = '$writer' and write_time = '$date';";
+        mysqli_query($db, $sql);
+        header("location: ".$_SERVER['PHP_SELF']."?topic=".$topic);
+    }
     $report = "";
     $id = $_GET['topic'];
     $sql = "SELECT t.name, t.creation_time, u.username FROM topics t INNER JOIN users u ON t.creater = u.id WHERE t.id='$id' LIMIT 1;";
@@ -47,7 +58,7 @@ if (isset($db))
 if (isset($db))
 {
     $id = $_GET['topic'];
-    $sql = "SELECT p.content, u.username, p.write_time, p.topic FROM posts p INNER JOIN users u ON p.writer = u.id WHERE p.topic = '$id' ORDER BY p.write_time DESC;";
+    $sql = "SELECT p.content, u.username, p.writer, p.write_time, p.topic FROM posts p INNER JOIN users u ON p.writer = u.id WHERE p.topic = '$id' ORDER BY p.write_time DESC;";
     $result = mysqli_query($db, $sql);
     $array = array();
     while($data = mysqli_fetch_assoc($result))
@@ -58,6 +69,7 @@ if (isset($db))
     {
     foreach ($array as $i) {
         echo "<div class='post border rounded col col-6'>";
+        echo "<a href='".$_SERVER['PHP_SELF']."?topic=".$i['topic']."&deletepost=".$i['writer'].";".$i['write_time']."' class='btn btn-secondary float-right'>Törlés</a>";
         echo "<h2>".$i['username']."</h2>";
         echo "<h6>Létrehozva: ".$i['write_time']."</h6>";
         echo "<hr>";
