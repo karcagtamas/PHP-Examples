@@ -11,7 +11,7 @@ if (isset($db))
         $topic = $_GET['topic'];
         $sql = "DELETE FROM posts WHERE writer = '$writer' and write_time = '$date';";
         mysqli_query($db, $sql);
-        header("location: ".$_SERVER['PHP_SELF']."?topic=".$topic);
+        header("    : ".$_SERVER['PHP_SELF']."?topic=".$topic);
     }
     $report = "";
     $id = $_GET['topic'];
@@ -69,7 +69,7 @@ if (isset($db))
     {
     foreach ($array as $i) {
         echo "<div class='post border rounded col col-6'>";
-        echo "<a href='".$_SERVER['PHP_SELF']."?topic=".$i['topic']."&deletepost=".$i['writer'].";".$i['write_time']."' class='btn btn-secondary float-right'>Törlés</a>";
+        if ($_SESSION['username'] == $i['username']) echo "<a href='".$_SERVER['PHP_SELF']."?topic=".$i['topic']."&deletepost=".$i['writer'].";".$i['write_time']."' class='btn btn-secondary float-right'>Törlés</a>";
         echo "<h2>".$i['username']."</h2>";
         echo "<h6>Létrehozva: ".$i['write_time']."</h6>";
         echo "<hr>";

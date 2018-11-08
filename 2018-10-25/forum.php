@@ -10,6 +10,10 @@ else $event = 0;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+    if (isset($_POST['modify']))
+    {
+        
+    }
     $username = $_SESSION['username'];
     if (isset($_POST['submit'])) { $topicname = $_POST['topicname'];
     $f = true;
