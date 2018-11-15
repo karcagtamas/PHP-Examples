@@ -6,7 +6,7 @@ if (!isset($_SESSION['username']))
     header('location: login.php');
 }
 
-$sql = "SELECT n.id, n.title, n.creation_time, n.last_modify, u.username FROM news n
+$sql = "SELECT n.id, n.title, n.creation_time, n.last_modify, u.username, n.picture FROM news n
 INNER JOIN users u ON n.creater = u.id
 WHERE n.end_time > NOW();";
 
@@ -51,32 +51,59 @@ $db->close();
     #logout{
         margin: 20px;
     }
+    #new{
+        margin: 20px;
+    }
     .element{
         margin: 10px;
         padding: 10px;
         background-color: #ffffcc;
     }
+    .btn{
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    *{
+        font-family: 'Noto Serif', serif!important;
+    }
+    img{
+        height: 100px;
+        width: auto;
+    }
 </style>
 <body>
     <a href="logout.php" id="logout" class="btn btn-primary float-right col-1">Kijelentkezés</a>
-    <div class="username border rounded col-10">
+    <a href="new.php" id="new" class="btn btn-primary float-right col-1">Új hír</a>
+    <div class="username border rounded col-9">
         <h1>Belépett felhasználó: <?php echo $username ?></h1>
         <small>Regisztráció: <?php echo $reg_time ?></small>
     </div>
     <div>
         <?php
-            if (!is_null($news))
+            if (count($news) > 0)
             {
                 foreach ($news as $i) {
-                    echo "<div class='element border rounded'>";
+                    echo "<div class='element border rounded row'>";
+                    if (is_null($i['picture'])) echo "<div class='col-1'><img src='default.jpg'></div>";
+                    else echo '<div><img src="data:image/jpeg;base64,'.base64_encode( $i['picture'] ).'"/></div>';
+                    echo "<div class='col-11'>";
                     echo "<a href='view.php?id=$i[id]' class='btn btn-primary float-right col-1'>Megnyitás</a>";
+                    echo "<a href='modify.php?id=$i[id]' class='btn btn-primary float-right col-1'>Szerkesztés</a>";
                     echo "<h4>$i[title]</h4>";
                     echo "<small>Megjelenés dátuma: $i[creation_time]</small><br>";
-                    echo "<a href='modify.php?id=$i[id]' class='btn btn-primary float-right col-1'>Szerkesztés</a>";
                     echo "<small>Készítette: $i[username]</small>";
+                    if (!is_null($i['last_modify']))
+                    echo "<br><small>Utoljára szerkesztve: $i[last_modify]</small>";
+                    echo "</div>";
                     echo "</div>";
                 }
                 
+            }
+            else 
+            {
+                echo "<div class='element border rounded'>";
+                echo "<h1>Nincs megjeleníthető hír!</h1>";
+                echo "</div>";
             }
         ?>
     </div>

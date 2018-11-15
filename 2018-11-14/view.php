@@ -34,6 +34,7 @@ $db->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet">
     <title>Portal</title>
 </head>
 <style>
@@ -49,34 +50,46 @@ $db->close();
     #logout{
         margin: 20px;
     }
+    #back{
+        margin: 20px;
+    }
     .element{
         margin: 10px;
         padding: 10px;
         background-color: #ffffcc;
     }
+    *{
+        font-family: 'Noto Serif', serif!important;
+    }
 </style>
 <body>
     <a href="logout.php" id="logout" class="btn btn-primary float-right col-1">Kijelentkezés</a>
-    <div class="username border rounded col-10">
+    <a href="portal.php" id="back" class="btn btn-primary float-right col-1">Vissza</a>
+    <div class="username border rounded col-9">
         <h1>Belépett felhasználó: <?php echo $username ?></h1>
         <small>Regisztráció: <?php echo $reg_time ?></small>
+       
     </div>
     <div>
         <?php
-            if (!is_null($news))
+            if (count($news) > 0)
             {
                 
                     echo "<div class='element border rounded'>";
-                    echo "<a href='view.php?id=$news[id]' class='btn btn-primary float-right col-1'>Megnyitás</a>";
                     echo "<h4>$news[title]</h4>";
                     echo "<small>Megjelenés dátuma: $news[creation_time]</small><br>";
-                    echo "<a href='modify.php?id=$news[id]' class='btn btn-primary float-right col-1'>Szerkesztés</a>";
                     echo "<small>Készítette: $news[username]</small>";
+                    if (!is_null($news['last_modify']))
+                    echo "<br><small>Utoljára szerkesztve: $news[last_modify]</small>";
                     echo "<hr>";
                     echo "<p>$news[content]</p>";
                     echo "</div>";
-                
-                
+            }
+            else 
+            {
+                echo "<div class='element border rounded'>";
+                echo "<h1>Nincs megjeleníthető adat!</h1>";
+                echo "</div>";
             }
         ?>
     </div>

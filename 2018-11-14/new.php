@@ -8,30 +8,29 @@ if (!isset($_SESSION['username']))
 $news = array();
 
 $username = $_SESSION['username'];
-$sql = "SELECT u.registration_time FROM users u
+$sql = "SELECT u.registration_time, u.id FROM users u
 WHERE u.username LIKE '$username';";
 $result = $db->query($sql);
-$result = $result->fetch_array();
-$reg_time = $result[0];
+$result = $result->fetch_assoc();
+$reg_time = $result['registration_time'];
+$userid = $result['id'];
+$alert = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     $content = $_POST['content'];
+    $title = $_POST['title'];
 
-    $sql = "UPDATE news n SET n.content = '$content', n.last_modify = NOW() WHERE n.id = '$_GET[id]';";
-    $db->query($sql);
-    header("location: view.php?id=$_GET[id]");
-}
-
-if (isset($_GET['id']))
-{
-    $sql = "SELECT n.id, n.title, n.creation_time, n.last_modify, u.username, n.content FROM news n
-    INNER JOIN users u ON n.creater = u.id
-    WHERE n.id = $_GET[id] and n.end_time > NOW();";
-    $result = $db->query($sql);
-    if ($result->num_rows > 0)
+    if (strlen($content) == 0 || strlen(trim($content)) == 0 || strlen($title) == 0 || strlen(trim($title)) == 0)
     {
-        $news = $result->fetch_assoc();
+        $alert = "Nem hagyhatsz üresen mezőket!";
+    }
+    else
+    {
+        $sql = "INSERT INTO news(title, creater, content, end_time)
+        VALUES ('$title', '$userid', '$content', '2018-12-10');";
+        $db->query($sql);
+        header("location: portal.php");
     }
 }
 
@@ -83,34 +82,18 @@ $db->close();
     <div class="username border rounded col-9">
         <h1>Belépett felhasználó: <?php echo $username ?></h1>
         <small>Regisztráció: <?php echo $reg_time ?></small>
-        
     </div>
     <div>
-        <?php
-            if (count($news) > 0)
-            {
-               
-                    echo "<div class='element border rounded'>";
-                    echo "<h4>$news[title]</h4>";
-                    echo "<small>Megjelenés dátuma: $news[creation_time]</small><br>";
-                    echo "<small>Készítette: $news[username]</small>";
-                    if (!is_null($news['last_modify']))
-                    echo "<br><small>Utoljára szerkesztve: $news[last_modify]</small>";
-                    echo "<hr>";
-                    echo "<form action='$_SERVER[PHP_SELF]?id=$news[id]' method='post'>";                   
-                    echo "<textarea name='content' rows='25'>$news[content]</textarea>";
-                    echo "<input type='submit' value='Mentés' class='btn btn-primary col-1'>";
-                    echo "</form>";
-                    echo "</div>";
-
-            }
-            else 
-            {
-                echo "<div class='element border rounded'>";
-                echo "<h1>Nincs megjeleníthető adat!</h1>";
-                echo "</div>";
-            }
-        ?>
+        <div class="element border rounded">
+            <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+                <label>Add meg a hír címét:</label>
+                <input type='text' name='title' placeholder='Cím'>
+                <hr>
+                <textarea name="content" rows="10" placeholder="Add meg a szövegét a hírnek"></textarea>
+                <input type='submit' value='Mentés' class='btn btn-primary col-1'>
+            </form>
+        </div>
+        <?php if (strlen($alert) != 0 || strlen(trim($alert)) != 0) echo "<div class='alert alert-danger'>$alert</div>"; ?>
     </div>
 </body>
 </html>

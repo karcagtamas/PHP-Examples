@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet">
     <title>Login</title>
 </head>
 <style>
@@ -45,6 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
      a{
         color: white;
         text-decoration: none;
+    }
+    *{
+        font-family: 'Noto Serif', serif!important;
     }
 </style>
 <body>
