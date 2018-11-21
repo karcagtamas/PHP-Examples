@@ -48,20 +48,13 @@ $db->close();
         color: white;
         text-decoration: none;
     }
-    #logout{
-        margin: 20px;
-    }
-    #new{
-        margin: 20px;
-    }
     .element{
         margin: 10px;
         padding: 10px;
         background-color: #ffffcc;
     }
     .btn{
-        margin-left: 5px;
-        margin-right: 5px;
+        margin: 5px;
     }
     *{
         font-family: 'Noto Serif', serif!important;
@@ -72,32 +65,40 @@ $db->close();
     }
 </style>
 <body>
-    <a href="logout.php" id="logout" class="btn btn-primary float-right col-1">Kijelentkezés</a>
-    <a href="new.php" id="new" class="btn btn-primary float-right col-1">Új hír</a>
-    <div class="username border rounded col-9">
+<div class="row">
+<div class="username border rounded col-8 col-lg-9">
         <h1>Belépett felhasználó: <?php echo $username ?></h1>
         <small>Regisztráció: <?php echo $reg_time ?></small>
-    </div>
+</div>
+<div class="col-3 col-lg-2">
+<a href="logout.php" class="btn btn-primary col-12">Kijelentkezés</a>
+    <a href="new.php" id="new" class="btn btn-primary col-12">Új hír</a>
+</div>
+</div>
+   
+    
     <div>
         <?php
             if (count($news) > 0)
             {
                 foreach ($news as $i) {
-                    echo "<div class='element border rounded row'>";
-                    if (is_null($i['picture'])) echo "<div class='col-1'><img src='default.jpg'></div>";
-                    else echo '<div><img src="data:image/jpeg;base64,'.base64_encode( $i['picture'] ).'"/></div>';
-                    echo "<div class='col-11'>";
-                    echo "<a href='view.php?id=$i[id]' class='btn btn-primary float-right col-1'>Megnyitás</a>";
-                    echo "<a href='modify.php?id=$i[id]' class='btn btn-primary float-right col-1'>Szerkesztés</a>";
+                    echo "<div class='element row border rounded'>";
+                    if (is_null($i['picture'])) echo "<div class='col-3 col-lg-2'><img src='default.jpg'></div>";
+                    else echo '<div><img class="col-3" src="data:image/jpeg;base64,'.base64_encode( $i['picture'] ).'"/></div>';
+                    echo "<div class='col-5 col-lg-8'>";
                     echo "<h4>$i[title]</h4>";
                     echo "<small>Megjelenés dátuma: $i[creation_time]</small><br>";
                     echo "<small>Készítette: $i[username]</small>";
                     if (!is_null($i['last_modify']))
                     echo "<br><small>Utoljára szerkesztve: $i[last_modify]</small>";
                     echo "</div>";
+                    echo "<div class='col-4 col-lg-2'>";
+                    echo "<a href='view.php?id=$i[id]' class='btn btn-primary col-12'>Megnyitás</a>";
+                    echo "<a href='modify.php?id=$i[id]' class='btn btn-primary col-12'>Szerkesztés</a>";
+                    echo "</div>";
+                    echo "</div>";
                     echo "</div>";
                 }
-                
             }
             else 
             {
