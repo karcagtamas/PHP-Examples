@@ -1,0 +1,16 @@
+#form{
+    margin: 1rem;
+}
+.btn{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+td{
+    padding: 0.5rem;
+}
+tr:hover{
+    background-color: lightcoral;
+}
+td:hover{
+    background-color: lightgreen;
+}
